@@ -1,0 +1,29 @@
+
+name: Fairfax QPF Alert Feed (Hourly)
+on:
+  schedule:
+    - cron: "20 * * * *"   # run at :20 past every hour
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Generate feed
+        run: |
+          python fairfax_wpc_qpf_alert_feed.py
+
+      - name: Commit feed
+        run: |
+          git config user.name "feed-bot"
+          git config user.email "feed-bot@example.com"
+          git add feed.xml items.json state.json
+          git commit -m "Update feed $(date -u +'%Y-%m-%dT%H:%M:%SZ')" || echo "No changes"
+          git push
