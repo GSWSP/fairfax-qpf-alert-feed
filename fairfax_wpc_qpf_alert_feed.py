@@ -2,7 +2,7 @@
 #!/usr/bin/env python3
 """
 Fairfax, VA — WPC QPF-based 48h rain alert RSS (no API keys)
-Alerts when any 48-hour window through Day 7 meets/exceeds 0.30"
+Alerts when any 48-hour window through Day 7 meets/exceeds 0.10"
 
 Data source:
 - WPC QPF MapServer (NOAA/NWS) with 48h layers (Day 1–2, 4–5, 6–7) and 6h intervals through Day 3.
@@ -18,7 +18,7 @@ import urllib.request, urllib.parse
 
 # ===== CONFIG =====
 LAT, LON = 38.8460, -77.3060       # Fairfax, VA point (City of Fairfax)
-THRESHOLD_IN = 0.30
+THRESHOLD_IN = 0.10
 SERVICE = "https://mapservices.weather.noaa.gov/vector/rest/services/precip/wpc_qpf/MapServer"
 FEED_FILE = Path("feed.xml")
 ITEMS_FILE = Path("items.json")
